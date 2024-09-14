@@ -71,7 +71,7 @@
               <manifest>
                 <addClasspath>true</addClasspath>
                 <classpathPrefix>lib/</classpathPrefix>
-                <mainClass>packageBreaker.Main</mainClass>
+                <mainClass>packageBreaker.BrickBreaker</mainClass>
               </manifest>
             </archive>
           </configuration>

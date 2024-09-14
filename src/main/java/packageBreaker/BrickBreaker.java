@@ -39,13 +39,16 @@ public class BrickBreaker extends JPanel implements KeyListener, ActionListener 
     private void resetBallPositionAndDirection() {
         ballPosX = (int) (Math.random() * (670 - 20)) + 20; // Sorteggia la posizione orizzontale
         ballPosY = 350; // Verticale fissa
+
         // Sorteggia una direzione casuale tra tre opzioni
-        int direction = (int) (Math.random() * 3);
-        switch (direction) {
-            case 0: ballXDir = -1; ballYDir = -2; break;  // Alto sinistra
-            case 1: ballXDir = 0;  ballYDir = -2; break;  // Alto dritto
-            case 2: ballXDir = 1;  ballYDir = -2; break;  // Alto destra
+        double randomValue = Math.random();  // Genera un valore casuale tra 0.0 e 1.0
+
+        if (randomValue < 0.5) {
+            ballXDir = -1;  // Alto sinistra
+        } else {
+            ballXDir = 1;   // Alto destra
         }
+        ballYDir = -2;
     }
 
     public void paint(Graphics g) {

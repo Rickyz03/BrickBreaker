@@ -27,13 +27,6 @@ public class BrickBreakerTest {
     }
 
     @Test
-    public void testBrickBreakerIstantiation(){
-        // Verifica che la classe App possa essere istanziata correttamente
-        BrickBreaker brickBreaker2 = new BrickBreaker();
-        assertNotNull(brickBreaker2);
-    }
-
-    @Test
     public void testInitialConditions() {
         assertFalse(brickBreaker.play);
         assertEquals(0, brickBreaker.score);
