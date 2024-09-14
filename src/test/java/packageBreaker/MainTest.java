@@ -11,7 +11,7 @@ import static org.junit.Assert.assertNotNull;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 
-public class AppTest {
+public class MainTest {
     @Test
     public void testHelloWorld() {
         // Reindirizza l'output standard

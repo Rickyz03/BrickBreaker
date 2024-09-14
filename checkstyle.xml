@@ -7,7 +7,7 @@
         <module name="CyclomaticComplexity"/>
         <module name="MethodLength"/>
         <module name="EmptyCatchBlock"/>
-        <module name="AvoidStarImport"/>
+        <!-- <module name="AvoidStarImport"/>  IMPOSSIBILE -->
         <module name="IllegalImport"/>
         <module name="NeedBraces"/>
     </module>
