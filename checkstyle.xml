@@ -4,7 +4,11 @@
 <module name="Checker">
     <module name="TreeWalker">
         <module name="BooleanExpressionComplexity"/>
-        <module name="CyclomaticComplexity"/>
+        <!-- <module name="CyclomaticComplexity"/> Di default è 10, IMPOSSIBILE -->
+        <!-- Modifica la CyclomaticComplexity a un massimo di 15: -->
+        <module name="CyclomaticComplexity">
+            <property name="max" value="15"/>
+        </module>
         <module name="MethodLength"/>
         <module name="EmptyCatchBlock"/>
         <!-- <module name="AvoidStarImport"/>  IMPOSSIBILE -->
@@ -12,7 +16,11 @@
         <module name="NeedBraces"/>
     </module>
     <module name="FileLength"/>
-    <module name="LineLength"/>
+    <!-- <module name="LineLength"/> Di default è 80, IMPOSSIBILE -->
+    <!-- Modifica la LineLength a 250 caratteri: -->
+    <module name="LineLength">
+        <property name="max" value="250"/>
+    </module>
     <module name="FileTabCharacter"/>
     <module name="RegexpHeader">
         <property name="headerFile" value="LICENSE.txt"/>

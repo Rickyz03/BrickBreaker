@@ -1,3 +1,7 @@
+////////////////////////////////////////////////////////////////////
+// Riccardo Stefani
+////////////////////////////////////////////////////////////////////
+
 package packageBreaker;
 
 import javax.swing.*;
@@ -5,17 +9,17 @@ import java.awt.*;
 import java.awt.event.*;
 
 public class BrickBreaker extends JPanel implements KeyListener, ActionListener {
-    private boolean play = false;
-    private int score = 0;
-    private int totalBricks = 21;
-    private Timer timer;
-    private int delay = 8;
-    private int playerX = 310;
-    private int ballPosX = 120;
-    private int ballPosY = 350;
-    private int ballXDir = -1;
-    private int ballYDir = -2;
-    private MapGenerator map;
+    boolean play = false;
+    int score = 0;
+    int totalBricks = 21;
+    Timer timer;
+    int delay = 8;
+    int playerX = 310;
+    int ballPosX = 120;
+    int ballPosY = 350;
+    int ballXDir = -1;
+    int ballYDir = -2;
+    MapGenerator map;
 
     public BrickBreaker() {
         map = new MapGenerator(3, 7);
