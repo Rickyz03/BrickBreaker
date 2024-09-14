@@ -7,6 +7,7 @@ package packageBreaker;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.security.SecureRandom;
 
 public class BrickBreaker extends JPanel implements KeyListener, ActionListener {
     boolean play = false;
@@ -21,9 +22,11 @@ public class BrickBreaker extends JPanel implements KeyListener, ActionListener 
     int ballXDir;
     int ballYDir;
     MapGenerator map;
+    SecureRandom secureRandom;
 
     public BrickBreaker() {
         map = new MapGenerator(3, 7);
+        secureRandom = new SecureRandom();
         addKeyListener(this);
         setFocusable(true);
         setFocusTraversalKeysEnabled(false);
@@ -36,11 +39,11 @@ public class BrickBreaker extends JPanel implements KeyListener, ActionListener 
 
     // Metodo per sorteggiare la posizione della pallina
     private void resetBallPositionAndDirection() {
-        ballPosX = (int) (Math.random() * (670 - 20)) + 20; // Sorteggia la posizione orizzontale
-        ballPosY = 350; // Verticale fissa
+        ballPosX = secureRandom.nextInt(670 - 20) + 20;  // Sorteggia la posizione orizzontale
+        ballPosY = 350;  // Verticale fissa
 
-        // Sorteggia una direzione casuale tra tre opzioni
-        double randomValue = Math.random();  // Genera un valore casuale tra 0.0 e 1.0
+        // Sorteggia una direzione casuale tra due opzioni
+        double randomValue = secureRandom.nextDouble();  // Genera un valore casuale tra 0.0 e 1.0
 
         if (randomValue < 0.5) {
             ballXDir = -1;  // Alto sinistra
