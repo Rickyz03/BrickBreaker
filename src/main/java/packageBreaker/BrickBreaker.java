@@ -35,9 +35,6 @@ public class BrickBreaker extends JPanel implements KeyListener, ActionListener 
         setFocusTraversalKeysEnabled(false);
         timer = new Timer(delay, this);
         timer.start();
-
-        // Sorteggia la posizione iniziale e la direzione della pallina
-        resetBallPositionAndDirection();
     }
 
     // Metodo per sorteggiare la posizione della pallina
@@ -79,10 +76,25 @@ public class BrickBreaker extends JPanel implements KeyListener, ActionListener 
         g.setColor(Color.green);
         g.fillRect(playerX, 550, 100, 8);
 
-        // The ball
-        g.setColor(Color.yellow);
-        g.fillOval(ballPosX, ballPosY, 20, 20);
+        // The ball (only when the game starts)
+        if (play) {
+            g.setColor(Color.yellow);
+            g.fillOval(ballPosX, ballPosY, 20, 20);
+        }
 
+        // Messaggio di istruzioni all'inizio
+        if (isTheFirstMatch) {
+            g.setColor(Color.red);
+            g.setFont(new Font("serif", Font.BOLD, 30));
+            g.drawString("Press Enter to start", 187, 300);
+
+            g.setColor(Color.white);
+            g.setFont(new Font("serif", Font.BOLD, 20));
+            g.drawString("Then use the left and right arrows", 160, 330);
+            g.drawString("to play, moving the horizontal line", 160, 360);
+        }
+
+        // Condizioni di vittoria
         if (totalBricks <= 0) {
             play = false;
             ballXDir = 0;
@@ -95,6 +107,7 @@ public class BrickBreaker extends JPanel implements KeyListener, ActionListener 
             g.drawString("Press Enter to Restart", 230, 350);
         }
 
+        // Condizioni di game over
         if (ballPosY > 570) {
             play = false;
             ballXDir = 0;
@@ -191,12 +204,14 @@ public class BrickBreaker extends JPanel implements KeyListener, ActionListener 
                 score = 0;
                 totalBricks = 21;
 
-                // Se è il primo match, usa la posizione già sorteggiata e la mappa già creata
+                // Sorteggia la posizione e la direzione della pallina
+                resetBallPositionAndDirection();
+
+                // Se è il primo match, usa la mappa già creata
                 if (isTheFirstMatch) {
                     isTheFirstMatch = false; // La prima partita è iniziata
                 } else {
-                    // Se non è il primo match, sorteggia una nuova posizione per la pallina e crea una nuova mappa
-                    resetBallPositionAndDirection();
+                    // Se non è il primo match, crea una nuova mappa
                     map = new MapGenerator(3, 7);
                 }
 
