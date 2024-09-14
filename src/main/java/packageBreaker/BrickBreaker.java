@@ -7,7 +7,6 @@ package packageBreaker;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
-import java.util.Random;
 
 public class BrickBreaker extends JPanel implements KeyListener, ActionListener {
     boolean play = false;
@@ -120,9 +119,8 @@ public class BrickBreaker extends JPanel implements KeyListener, ActionListener 
                         int brickWidth = map.brickWidth;
                         int brickHeight = map.brickHeight;
 
-                        Rectangle rect = new Rectangle(brickX, brickY, brickWidth, brickHeight);
+                        Rectangle brickRect = new Rectangle(brickX, brickY, brickWidth, brickHeight);
                         Rectangle ballRect = new Rectangle(ballPosX, ballPosY, 20, 20);
-                        Rectangle brickRect = rect;
 
                         if (ballRect.intersects(brickRect)) {
                             map.setBrickValue(0, i, j);
@@ -223,7 +221,7 @@ public class BrickBreaker extends JPanel implements KeyListener, ActionListener 
 }
 
 class MapGenerator {
-    public int map[][];
+    public int[][] map;
     public int brickWidth;
     public int brickHeight;
 

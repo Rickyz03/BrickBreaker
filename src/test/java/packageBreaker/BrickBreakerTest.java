@@ -8,7 +8,6 @@ import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
-import org.mockito.Mockito;
 import static org.mockito.Mockito.*;
 
 import java.awt.*;
