@@ -111,6 +111,7 @@ public class BrickBreakerTest {
     @Test
     public void testMoveRight() {
         int initialPlayerX = brickBreaker.playerX;
+        brickBreaker.play = true; // you can move the player only if play is true
         brickBreaker.moveRight();
         assertTrue(brickBreaker.play);
         assertEquals(initialPlayerX + 20, brickBreaker.playerX);
@@ -119,6 +120,7 @@ public class BrickBreakerTest {
     @Test
     public void testMoveLeft() {
         int initialPlayerX = brickBreaker.playerX;
+        brickBreaker.play = true; // you can move the player only if play is true
         brickBreaker.moveLeft();
         assertTrue(brickBreaker.play);
         assertEquals(initialPlayerX - 20, brickBreaker.playerX);
@@ -127,6 +129,7 @@ public class BrickBreakerTest {
     @Test
     public void testKeyPressRight() {
         KeyEvent rightKey = new KeyEvent(brickBreaker, KeyEvent.KEY_PRESSED, System.currentTimeMillis(), 0, KeyEvent.VK_RIGHT, 'D');
+        brickBreaker.play = true; // you can move the player only if play is true
         brickBreaker.keyPressed(rightKey);
         assertTrue(brickBreaker.play);
     }
@@ -134,6 +137,7 @@ public class BrickBreakerTest {
     @Test
     public void testKeyPressLeft() {
         KeyEvent leftKey = new KeyEvent(brickBreaker, KeyEvent.KEY_PRESSED, System.currentTimeMillis(), 0, KeyEvent.VK_LEFT, 'A');
+        brickBreaker.play = true; // you can move the player only if play is true
         brickBreaker.keyPressed(leftKey);
         assertTrue(brickBreaker.play);
     }

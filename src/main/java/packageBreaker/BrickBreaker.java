@@ -164,20 +164,23 @@ public class BrickBreaker extends JPanel implements KeyListener, ActionListener 
 
     @Override
     public void keyPressed(KeyEvent e) {
-        if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
-            if (playerX >= 600) {
-                playerX = 600;
-            } else {
-                moveRight();
+        if (play) { // Permetti il movimento solo se il gioco è attivo
+            if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
+                if (playerX >= 600) {
+                    playerX = 600;
+                } else {
+                    moveRight();
+                }
+            }
+            if (e.getKeyCode() == KeyEvent.VK_LEFT) {
+                if (playerX < 10) {
+                    playerX = 10;
+                } else {
+                    moveLeft();
+                }
             }
         }
-        if (e.getKeyCode() == KeyEvent.VK_LEFT) {
-            if (playerX < 10) {
-                playerX = 10;
-            } else {
-                moveLeft();
-            }
-        }
+
         if (e.getKeyCode() == KeyEvent.VK_ENTER) {
             if (!play) {
                 play = true;
@@ -200,14 +203,17 @@ public class BrickBreaker extends JPanel implements KeyListener, ActionListener 
     }
 
     public void moveRight() {
-        play = true;
-        playerX += 20;
+        if (play) { // Permetti il movimento solo se il gioco è attivo
+            playerX += 20;
+        }
     }
 
     public void moveLeft() {
-        play = true;
-        playerX -= 20;
+        if (play) { // Permetti il movimento solo se il gioco è attivo
+            playerX -= 20;
+        }
     }
+
 
     @Override
     public void keyReleased(KeyEvent e) {}
