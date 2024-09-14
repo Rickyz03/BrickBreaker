@@ -7,6 +7,7 @@ package packageBreaker;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.util.Random;
 
 public class BrickBreaker extends JPanel implements KeyListener, ActionListener {
     boolean play = false;
@@ -15,11 +16,12 @@ public class BrickBreaker extends JPanel implements KeyListener, ActionListener 
     Timer timer;
     int delay = 8;
     int playerX = 310;
-    int ballPosX = 120;
-    int ballPosY = 350;
-    int ballXDir = -1;
-    int ballYDir = -2;
+    int ballPosX;
+    int ballPosY;
+    int ballXDir;
+    int ballYDir;
     MapGenerator map;
+    Random rand = new Random(); // Oggetto Random per generare numeri casuali
 
     public BrickBreaker() {
         map = new MapGenerator(3, 7);
@@ -28,6 +30,10 @@ public class BrickBreaker extends JPanel implements KeyListener, ActionListener 
         setFocusTraversalKeysEnabled(false);
         timer = new Timer(delay, this);
         timer.start();
+
+        // Posizione iniziale casuale della pallina
+        ballPosX = rand.nextInt(670 - 20); // Posizione orizzontale casuale
+        ballPosY = 350 + rand.nextInt(200); // Posizione verticale casuale tra la barra e i blocchi
     }
 
     public void paint(Graphics g) {
@@ -156,10 +162,13 @@ public class BrickBreaker extends JPanel implements KeyListener, ActionListener 
         if (e.getKeyCode() == KeyEvent.VK_ENTER) {
             if (!play) {
                 play = true;
-                ballPosX = 120;
-                ballPosY = 350;
-                ballXDir = -1;
-                ballYDir = -2;
+                ballPosX = rand.nextInt(670 - 20); // Nuova posizione orizzontale casuale
+                ballPosY = 350 + rand.nextInt(200); // Nuova posizione verticale casuale tra la barra e i blocchi
+                // Direzione casuale di partenza della pallina
+                double angle = rand.nextDouble() * Math.PI / 3 - Math.PI / 6; // Tra -30° e +30°
+                ballXDir = (int) (2 * Math.cos(angle));
+                ballYDir = -2; // La pallina parte sempre verso l'alto
+
                 playerX = 310;
                 score = 0;
                 totalBricks = 21;
