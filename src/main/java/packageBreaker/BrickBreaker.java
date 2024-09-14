@@ -92,7 +92,6 @@ public class BrickBreaker extends JPanel implements KeyListener, ActionListener 
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        timer.start();
         if (play) {
             if (new Rectangle(ballPosX, ballPosY, 20, 20).intersects(new Rectangle(playerX, 550, 100, 8))) {
                 ballYDir = -ballYDir;
@@ -162,11 +161,20 @@ public class BrickBreaker extends JPanel implements KeyListener, ActionListener 
         if (e.getKeyCode() == KeyEvent.VK_ENTER) {
             if (!play) {
                 play = true;
-                ballPosX = rand.nextInt(670 - 20); // Nuova posizione orizzontale casuale
-                ballPosY = 350 + rand.nextInt(200); // Nuova posizione verticale casuale tra la barra e i blocchi
+
                 // Direzione casuale di partenza della pallina
-                double angle = rand.nextDouble() * Math.PI / 3 - Math.PI / 6; // Tra -30° e +30°
-                ballXDir = (int) (2 * Math.cos(angle));
+                int direction = rand.nextInt(3); // 0: alto a destra, 1: alto a sinistra, 2: alto dritto
+                switch (direction) {
+                    case 0:
+                        ballXDir = 1;
+                        break;
+                    case 1:
+                        ballXDir = -1;
+                        break;
+                    case 2:
+                        ballXDir = 0;
+                        break;
+                }
                 ballYDir = -2; // La pallina parte sempre verso l'alto
 
                 playerX = 310;
@@ -243,4 +251,3 @@ class MapGenerator {
         map[row][col] = value;
     }
 }
-
