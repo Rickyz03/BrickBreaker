@@ -129,9 +129,10 @@ public class BrickBreaker extends JPanel implements KeyListener, ActionListener 
                         Rectangle ballRect = new Rectangle(ballPosX, ballPosY, 20, 20);
 
                         if (ballRect.intersects(brickRect)) {
-                            map.setBrickValue(0, i, j);
+                            int brickValue = map.blockValues[i][j]; // Ottieni il punteggio del blocco colpito
+                            map.setBrickValue(0, i, j); // Rimuovi il blocco
                             totalBricks--;
-                            score += 5;
+                            score += brickValue; // Incrementa il punteggio in base al valore del blocco
 
                             if (ballPosX + 19 <= brickRect.x || ballPosX + 1 >= brickRect.x + brickRect.width) {
                                 ballXDir = -ballXDir;
@@ -278,7 +279,7 @@ class MapGenerator {
                     g.drawRect(j * brickWidth + 80, i * brickHeight + 50, brickWidth, brickHeight);
 
                     // Scrivi il punteggio sopra il blocco
-                    g.setColor(Color.white);
+                    g.setColor(Color.black); // Cambia il colore del testo in nero
                     g.setFont(new Font("serif", Font.BOLD, 20));
                     g.drawString("" + brickValue, j * brickWidth + 80 + brickWidth / 2 - 10, i * brickHeight + 50 + brickHeight / 2 + 5);
                 }
