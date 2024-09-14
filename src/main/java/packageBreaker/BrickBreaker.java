@@ -11,17 +11,17 @@ import java.util.Random;
 
 public class BrickBreaker extends JPanel implements KeyListener, ActionListener {
     boolean play = false;
+    boolean isTheFirstMatch = true; // Variabile per distinguere la prima partita
     int score = 0;
     int totalBricks = 21;
     Timer timer;
     int delay = 8;
     int playerX = 310;
-    int ballPosX;
+    int ballPosX; // Ora sorteggiato all'inizio
     int ballPosY;
     int ballXDir;
     int ballYDir;
     MapGenerator map;
-    Random rand = new Random(); // Oggetto Random per generare numeri casuali
 
     public BrickBreaker() {
         map = new MapGenerator(3, 7);
@@ -31,9 +31,21 @@ public class BrickBreaker extends JPanel implements KeyListener, ActionListener 
         timer = new Timer(delay, this);
         timer.start();
 
-        // Posizione iniziale casuale della pallina
-        ballPosX = rand.nextInt(670 - 20); // Posizione orizzontale casuale
-        ballPosY = 350 + rand.nextInt(200); // Posizione verticale casuale tra la barra e i blocchi
+        // Sorteggia la posizione iniziale e la direzione della pallina
+        resetBallPositionAndDirection();
+    }
+
+    // Metodo per sorteggiare la posizione della pallina
+    private void resetBallPositionAndDirection() {
+        ballPosX = (int) (Math.random() * (670 - 20)) + 20; // Sorteggia la posizione orizzontale
+        ballPosY = 350; // Verticale fissa
+        // Sorteggia una direzione casuale tra tre opzioni
+        int direction = (int) (Math.random() * 3);
+        switch (direction) {
+            case 0: ballXDir = -1; ballYDir = -2; break;  // Alto sinistra
+            case 1: ballXDir = 0;  ballYDir = -2; break;  // Alto dritto
+            case 2: ballXDir = 1;  ballYDir = -2; break;  // Alto destra
+        }
     }
 
     public void paint(Graphics g) {
@@ -159,40 +171,25 @@ public class BrickBreaker extends JPanel implements KeyListener, ActionListener 
             }
         }
         if (e.getKeyCode() == KeyEvent.VK_ENTER) {
-            // Condizione per il restart dopo Game Over o vittoria
             if (!play) {
-                // Reset completo del gioco
                 play = true;
+                playerX = 310; // Riposiziona il player al centro
+                score = 0;
+                totalBricks = 21;
+                map = new MapGenerator(3, 7);
 
-                // Riposizionamento casuale della pallina
-                ballPosX = rand.nextInt(670 - 20); // Posizione orizzontale casuale
-                ballPosY = 350 + rand.nextInt(200); // Posizione verticale casuale tra la barra e i blocchi
-
-                // Direzione casuale di partenza della pallina
-                int direction = rand.nextInt(3); // 0: alto a destra, 1: alto a sinistra, 2: alto dritto
-                switch (direction) {
-                    case 0:
-                        ballXDir = 1;
-                        break;
-                    case 1:
-                        ballXDir = -1;
-                        break;
-                    case 2:
-                        ballXDir = 0;
-                        break;
+                // Se è il primo match, usa la posizione già sorteggiata
+                if (isTheFirstMatch) {
+                    isTheFirstMatch = false; // La prima partita è iniziata
+                } else {
+                    // Se non è il primo match, sorteggia una nuova posizione per la pallina
+                    resetBallPositionAndDirection();
                 }
-                ballYDir = -2; // La pallina parte sempre verso l'alto
 
-                playerX = 310; // Riposizionare la barra al centro
-                score = 0; // Azzera il punteggio
-                totalBricks = 21; // Reset dei mattoni
-                map = new MapGenerator(3, 7); // Crea una nuova mappa di mattoni
-
-                repaint(); // Ripristina lo schermo per visualizzare il nuovo gioco
+                repaint();
             }
         }
     }
-
 
     public void moveRight() {
         play = true;
