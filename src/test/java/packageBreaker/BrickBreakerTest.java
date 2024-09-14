@@ -11,7 +11,9 @@ import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
 
 import java.awt.*;
-import java.awt.event.KeyEvent;
+import java.awt.event.*;
+
+import javax.swing.JFrame;
 
 public class BrickBreakerTest {
 
@@ -23,6 +25,24 @@ public class BrickBreakerTest {
         // Questo metodo viene eseguito prima di ogni test
         brickBreaker = new BrickBreaker();
         g = mock(Graphics2D.class); // Mock dell'oggetto Graphics2D
+    }
+
+    @Test
+    public void testStartGame() {
+        JFrame frame = BrickBreaker.startGame();
+
+        assertNotNull("Il frame non dovrebbe essere null", frame);
+
+        assertEquals("Il titolo del frame dovrebbe essere 'Brick Breaker'", "Brick Breaker", frame.getTitle());
+
+        assertEquals("La larghezza del frame dovrebbe essere 700", 700, frame.getWidth());
+        assertEquals("L'altezza del frame dovrebbe essere 600", 600, frame.getHeight());
+
+        assertFalse("Il frame non dovrebbe essere ridimensionabile", frame.isResizable());
+
+        assertTrue("Il frame dovrebbe essere visibile", frame.isVisible());
+
+        assertEquals("Il default close operation dovrebbe essere EXIT_ON_CLOSE", JFrame.EXIT_ON_CLOSE, frame.getDefaultCloseOperation());
     }
 
     @Test
@@ -79,6 +99,93 @@ public class BrickBreakerTest {
         // Verifica che la pallina venga disegnata
         verify(g, atLeastOnce()).setColor(Color.yellow); // Il colore giallo potrebbe essere usato anche altrove
         verify(g).fillOval(brickBreaker.ballPosX, brickBreaker.ballPosY, 20, 20); // Pallina
+    }
+
+    @Test
+    public void testResetBallPositionAndDirection() {
+        // Esegui il reset della posizione e della direzione della pallina
+        brickBreaker.resetBallPositionAndDirection();
+
+        assertTrue("La posizione X della pallina dovrebbe essere tra 20 e 670",
+                brickBreaker.ballPosX >= 20 && brickBreaker.ballPosX <= 670);
+
+        assertEquals("La posizione Y della pallina dovrebbe essere fissa a 350",
+                350, brickBreaker.ballPosY);
+
+        assertTrue("La direzione X della pallina dovrebbe essere -1 o 1",
+                brickBreaker.ballXDir == -1 || brickBreaker.ballXDir == 1);
+
+        assertEquals("La direzione Y della pallina dovrebbe essere -2",
+                -2, brickBreaker.ballYDir);
+    }
+
+    @Test
+    public void testBallIntersectsBrick() {
+        // Supponiamo che il primo blocco sia visibile e abbia un valore
+        int initialScore = brickBreaker.score;
+        int initialTotalBricks = brickBreaker.totalBricks;
+
+        // Piazza play a true e fissa le direzioni della pallina
+        brickBreaker.play = true;
+        brickBreaker.resetBallPositionAndDirection();
+        int inizialDirX = brickBreaker.ballXDir;
+        int inizialDirY = brickBreaker.ballYDir;
+
+        // Posiziona la pallina in modo che intersechi il primo blocco
+        brickBreaker.ballPosX = 80 + 1; // Imposta X della pallina a sinistra del blocco
+        brickBreaker.ballPosY = 50 + 1; // Imposta Y della pallina sopra il blocco
+
+        // Simula l'azione
+        ActionEvent event = new ActionEvent(brickBreaker, ActionEvent.ACTION_PERFORMED, "test");
+        brickBreaker.actionPerformed(event);
+
+        // Verifica che il punteggio sia stato aggiornato e il blocco sia stato rimosso
+        assertTrue("Score should be increased", brickBreaker.score > initialScore);
+        assertEquals("Total bricks should be decreased by 1", initialTotalBricks - 1, brickBreaker.totalBricks);
+
+        // Verifica la direzione della pallina
+        assertEquals("Ball X direction should be the same", inizialDirX, brickBreaker.ballXDir);
+        assertEquals("Ball Y direction should be reversed", -inizialDirY, brickBreaker.ballYDir);
+
+        // Verifica che il blocco sia stato rimosso
+        assertEquals("Brick should be removed (value should be 0)", 0, brickBreaker.map.map[0][0]);
+    }
+
+    @Test
+    public void testEnterKeyPressed_FirstMatch() {
+        MapGenerator originalMap = brickBreaker.map; // Mappa originale
+
+        // Simula la pressione del tasto ENTER
+        KeyEvent enterKey = new KeyEvent(brickBreaker, KeyEvent.KEY_PRESSED, System.currentTimeMillis(), 0, KeyEvent.VK_ENTER, KeyEvent.CHAR_UNDEFINED);
+        brickBreaker.keyPressed(enterKey);
+
+        assertTrue("The game should start when ENTER is pressed.", brickBreaker.play);
+
+        assertEquals("Player should be repositioned at the center.", 310, brickBreaker.playerX);
+
+        assertEquals("Score should be reset to 0.", 0, brickBreaker.score);
+
+        assertEquals("Total bricks should be reset to 21.", 21, brickBreaker.totalBricks);
+
+        assertNotEquals("Ball position X should be randomized.", 0, brickBreaker.ballPosX);
+        assertEquals("Ball position Y should be fixed at 350.", 350, brickBreaker.ballPosY);
+
+        assertFalse("isTheFirstMatch should be set to false after the first match.", brickBreaker.isTheFirstMatch);
+
+        assertSame("The map should not be recreated on the first match.", originalMap, brickBreaker.map);
+    }
+
+    @Test
+    public void testEnterKeyPressed_NotFirstMatch() {
+        // Simula un secondo match
+        brickBreaker.isTheFirstMatch = false;
+        MapGenerator originalMap = brickBreaker.map; // Mappa originale
+
+        // Simula la pressione del tasto ENTER
+        KeyEvent enterKey = new KeyEvent(brickBreaker, KeyEvent.KEY_PRESSED, System.currentTimeMillis(), 0, KeyEvent.VK_ENTER, KeyEvent.CHAR_UNDEFINED);
+        brickBreaker.keyPressed(enterKey);
+
+        assertNotSame("The map should be recreated after the first match.", originalMap, brickBreaker.map);
     }
 
     @Test

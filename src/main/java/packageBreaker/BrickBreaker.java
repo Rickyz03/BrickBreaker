@@ -38,7 +38,7 @@ public class BrickBreaker extends JPanel implements KeyListener, ActionListener 
     }
 
     // Metodo per sorteggiare la posizione della pallina
-    private void resetBallPositionAndDirection() {
+    void resetBallPositionAndDirection() {
         ballPosX = secureRandom.nextInt(670 - 20) + 20;  // Sorteggia la posizione orizzontale
         ballPosY = 350;  // Verticale fissa
 
@@ -232,24 +232,30 @@ public class BrickBreaker extends JPanel implements KeyListener, ActionListener 
         }
     }
 
+    @Override
+    public void keyReleased(KeyEvent e) {} // Necessario l'override per poter implementare l'interfaccia java.awt.event.KeyListener
 
     @Override
-    public void keyReleased(KeyEvent e) {}
+    public void keyTyped(KeyEvent e) {} // Necessario l'override per poter implementare l'interfaccia java.awt.event.KeyListener
 
-    @Override
-    public void keyTyped(KeyEvent e) {}
+    public static JFrame startGame() {
+        JFrame frame = new JFrame();
+        BrickBreaker gamePlay = new BrickBreaker();
+        frame.setBounds(10, 10, 700, 600);
+        frame.setTitle("Brick Breaker");
+        frame.setResizable(false);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.add(gamePlay);
+        frame.setVisible(true);
+        return frame; // Restituisce il JFrame frame al main JFrame
+    }
 
     public static void main(String[] args) {
-        JFrame obj = new JFrame();
-        BrickBreaker gamePlay = new BrickBreaker();
-        obj.setBounds(10, 10, 700, 600);
-        obj.setTitle("Brick Breaker");
-        obj.setResizable(false);
-        obj.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        obj.add(gamePlay);
-        obj.setVisible(true);
+        startGame(); // Chiama la funzione startGame
     }
+
 }
+
 
 class MapGenerator {
     public int[][] map; // Mappa dei blocchi (0 per assente, valore del punteggio per presente)
