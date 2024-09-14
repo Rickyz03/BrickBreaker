@@ -164,17 +164,20 @@ public class BrickBreaker extends JPanel implements KeyListener, ActionListener 
 
     @Override
     public void keyPressed(KeyEvent e) {
+        int leftBoundary = 3; // La linea gialla sul bordo sinistro
+        int rightBoundary = 692 - 3 - 100; // La larghezza della finestra meno la linea gialla e la larghezza del player
+
         if (play) { // Permetti il movimento solo se il gioco è attivo
             if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
-                if (playerX >= 600) {
-                    playerX = 600;
+                if (playerX >= rightBoundary) {
+                    playerX = rightBoundary; // Impedisci di andare oltre il limite destro
                 } else {
                     moveRight();
                 }
             }
             if (e.getKeyCode() == KeyEvent.VK_LEFT) {
-                if (playerX < 10) {
-                    playerX = 10;
+                if (playerX <= leftBoundary) {
+                    playerX = leftBoundary; // Impedisci di andare oltre il limite sinistro
                 } else {
                     moveLeft();
                 }
@@ -188,12 +191,11 @@ public class BrickBreaker extends JPanel implements KeyListener, ActionListener 
                 score = 0;
                 totalBricks = 21;
 
-                // Se è il primo match, usa la posizione già sorteggiata
+                // Se è il primo match, usa la posizione già sorteggiata e la mappa già creata
                 if (isTheFirstMatch) {
                     isTheFirstMatch = false; // La prima partita è iniziata
                 } else {
-                    // Se non è il primo match, sorteggia una nuova posizione per la pallina
-                    // e crea una nuova mappa
+                    // Se non è il primo match, sorteggia una nuova posizione per la pallina e crea una nuova mappa
                     resetBallPositionAndDirection();
                     map = new MapGenerator(3, 7);
                 }
