@@ -232,18 +232,17 @@ class MapGenerator {
     public int brickWidth;
     public int brickHeight;
 
-    // Punteggi fissi per i blocchi
-    private final int[] fixedBlockValues = {
-            5, 10, 15, 20, 25, 25, 20, 15, 10, 5,
-            5, 10, 15, 20, 25, 25, 20, 15, 5, 5, 5
-    };
-
     public MapGenerator(int row, int col) {
         map = new int[row][col];
         blockValues = new int[row][col];
         ArrayList<Integer> shuffledValues = new ArrayList<>();
 
         // Aggiungi i punteggi fissi alla lista
+        // Punteggi fissi per i blocchi
+        int[] fixedBlockValues = {
+                5, 10, 15, 20, 25, 25, 20, 15, 10, 5,
+                5, 10, 15, 20, 25, 25, 20, 15, 5, 5, 5
+        };
         for (int value : fixedBlockValues) {
             shuffledValues.add(value);
         }
