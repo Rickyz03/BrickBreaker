@@ -161,7 +161,7 @@
           </dependency>
         </dependencies>
         <configuration>
-          <repoToken><!-- To update --></repoToken>
+          <repoToken>36rAL8UWFEiQIf5adJBMP7egOPHsqpkQ9</repoToken>
         </configuration>
       </plugin>
       <plugin>
