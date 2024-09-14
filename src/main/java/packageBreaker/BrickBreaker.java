@@ -159,8 +159,14 @@ public class BrickBreaker extends JPanel implements KeyListener, ActionListener 
             }
         }
         if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+            // Condizione per il restart dopo Game Over o vittoria
             if (!play) {
+                // Reset completo del gioco
                 play = true;
+
+                // Riposizionamento casuale della pallina
+                ballPosX = rand.nextInt(670 - 20); // Posizione orizzontale casuale
+                ballPosY = 350 + rand.nextInt(200); // Posizione verticale casuale tra la barra e i blocchi
 
                 // Direzione casuale di partenza della pallina
                 int direction = rand.nextInt(3); // 0: alto a destra, 1: alto a sinistra, 2: alto dritto
@@ -177,15 +183,16 @@ public class BrickBreaker extends JPanel implements KeyListener, ActionListener 
                 }
                 ballYDir = -2; // La pallina parte sempre verso l'alto
 
-                playerX = 310;
-                score = 0;
-                totalBricks = 21;
-                map = new MapGenerator(3, 7);
+                playerX = 310; // Riposizionare la barra al centro
+                score = 0; // Azzera il punteggio
+                totalBricks = 21; // Reset dei mattoni
+                map = new MapGenerator(3, 7); // Crea una nuova mappa di mattoni
 
-                repaint();
+                repaint(); // Ripristina lo schermo per visualizzare il nuovo gioco
             }
         }
     }
+
 
     public void moveRight() {
         play = true;
