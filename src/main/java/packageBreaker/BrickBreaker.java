@@ -168,22 +168,6 @@ public class BrickBreaker extends JPanel implements KeyListener, ActionListener 
                 repaint();
             }
         }
-        if (e.getKeyCode() == KeyEvent.VK_UP) {
-            ballXDir = 0;
-            ballYDir = -2; // Muove la palla verso l'alto
-        }
-        if (e.getKeyCode() == KeyEvent.VK_DOWN) {
-            ballXDir = 0;
-            ballYDir = 2; // Muove la palla verso il basso
-        }
-        if (e.getKeyCode() == KeyEvent.VK_LEFT) {
-            ballXDir = -2; // Muove la palla verso sinistra
-            ballYDir = 0;
-        }
-        if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
-            ballXDir = 2; // Muove la palla verso destra
-            ballYDir = 0;
-        }
     }
 
     public void moveRight() {
@@ -250,3 +234,4 @@ class MapGenerator {
         map[row][col] = value;
     }
 }
+
