@@ -187,14 +187,15 @@ public class BrickBreaker extends JPanel implements KeyListener, ActionListener 
                 playerX = 310; // Riposiziona il player al centro
                 score = 0;
                 totalBricks = 21;
-                map = new MapGenerator(3, 7);
 
                 // Se è il primo match, usa la posizione già sorteggiata
                 if (isTheFirstMatch) {
                     isTheFirstMatch = false; // La prima partita è iniziata
                 } else {
                     // Se non è il primo match, sorteggia una nuova posizione per la pallina
+                    // e crea una nuova mappa
                     resetBallPositionAndDirection();
+                    map = new MapGenerator(3, 7);
                 }
 
                 repaint();
