@@ -1,0 +1,57 @@
+name: Java CI with Maven
+on: [push]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set up JDK 1.8
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'temurin'
+          java-version: 8.0.332+9
+          cache: 'maven'
+
+      - name: Build with Maven
+        run: mvn -B install --file pom.xml
+
+      - name: Generate coveralls report
+        run: mvn coveralls:report
+
+      - name: Generate JaCoCo Badge
+        id: jacoco
+        uses: cicirello/jacoco-badge-generator@v2.6.1
+        with:
+          generate-branches-badge: true
+          jacoco-csv-file: target/site/jacoco/jacoco.csv
+          badges-directory: .github/ReadmeBadges
+
+      - name: Log coverage percentage
+        run: |
+          echo "coverage = ${{ steps.jacoco.outputs.coverage}}"
+          echo "branches = ${{ steps.jacoco.outputs.branches}}"
+
+      - name: Generate checkstyle badge
+        run: mvn post-site
+
+      - name: Add badges
+        run:
+          git add .github/ReadmeBadges
+
+      - name: Commit files
+        run: |
+          git config --global user.name 'github-actions'
+          git config --global user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git commit -m "Generated badges" -a || true
+
+      - name: Push changes
+        uses: ad-m/github-push-action@master
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          branch: ${{ github.ref }}
+
+      - name: Upload JaCoCo coverage report
+        uses: actions/upload-artifact@v3
+        with:
+          name: jacoco-report
+          path: target/site/jacoco/
