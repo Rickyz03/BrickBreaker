@@ -168,6 +168,14 @@ public class BrickBreaker extends JPanel implements KeyListener, ActionListener 
                 repaint();
             }
         }
+        if (e.getKeyCode() == KeyEvent.VK_UP) { // Tasto per cambiare direzione
+            ballXDir = 1;  // Cambia direzione a destra
+            ballYDir = -1;  // Cambia direzione verso l'alto
+        }
+        if (e.getKeyCode() == KeyEvent.VK_DOWN) { // Tasto per cambiare direzione
+            ballXDir = -1; // Cambia direzione a sinistra
+            ballYDir = -1; // Cambia direzione verso l'alto
+        }
     }
 
     public void moveRight() {
