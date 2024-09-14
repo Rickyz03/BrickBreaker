@@ -13,10 +13,10 @@ jobs:
           cache: 'maven'
 
       - name: Build with Maven
-        run: mvn -B install --file pom.xml
+        run: mvn -B install --file pom.xml -Djava.awt.headless=true
 
       - name: Generate coveralls report
-        run: mvn coveralls:report
+        run: mvn coveralls:report -Djava.awt.headless=true
 
       - name: Generate JaCoCo Badge
         id: jacoco
@@ -30,9 +30,8 @@ jobs:
         run: |
           echo "coverage = ${{ steps.jacoco.outputs.coverage}}"
           echo "branches = ${{ steps.jacoco.outputs.branches}}"
-
       - name: Generate checkstyle badge
-        run: mvn post-site
+        run: mvn post-site -Djava.awt.headless=true
 
       - name: Add badges
         run:
@@ -43,7 +42,6 @@ jobs:
           git config --global user.name 'github-actions'
           git config --global user.email '41898282+github-actions[bot]@users.noreply.github.com'
           git commit -m "Generated badges" -a || true
-
       - name: Push changes
         uses: ad-m/github-push-action@master
         with:
