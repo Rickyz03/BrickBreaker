@@ -73,6 +73,7 @@ public class BrickBreakerTest {
 
     @Test
     public void testPaintBall() {
+        brickBreaker.play = true; // the ball will be drawn only if play is true
         brickBreaker.paint(g);
 
         // Verifica che la pallina venga disegnata
