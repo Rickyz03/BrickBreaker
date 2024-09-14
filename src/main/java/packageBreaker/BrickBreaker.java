@@ -9,6 +9,10 @@ import java.awt.*;
 import java.awt.event.*;
 import java.security.SecureRandom;
 
+import java.util.HashMap;
+import java.util.ArrayList;
+import java.util.Collections;
+
 public class BrickBreaker extends JPanel implements KeyListener, ActionListener {
     boolean play = false;
     boolean isTheFirstMatch = true; // Variabile per distinguere la prima partita
@@ -225,26 +229,82 @@ public class BrickBreaker extends JPanel implements KeyListener, ActionListener 
 
 class MapGenerator {
     public int[][] map;
+    public int[][] brickValues;  // Array per memorizzare i valori dei blocchi
     public int brickWidth;
     public int brickHeight;
+    private HashMap<Integer, Color> valueToColorMap;  // Mappa per associare i valori ai colori
 
     public MapGenerator(int row, int col) {
         map = new int[row][col];
+        brickValues = new int[row][col];  // Inizializza l'array per i valori
+
+        // Definisci i multipli di 5 e assicurati che sommino a 500
+        ArrayList<Integer> brickValueList = generateBrickValues(row * col, 500);
+
+        // Mescola i valori per distribuirli casualmente
+        Collections.shuffle(brickValueList);
+
+        int index = 0;
         for (int i = 0; i < map.length; i++) {
             for (int j = 0; j < map[0].length; j++) {
-                map[i][j] = 1;
+                map[i][j] = 1;  // Imposta il blocco come attivo
+                brickValues[i][j] = brickValueList.get(index);  // Assegna un valore al blocco
+                index++;
             }
         }
 
+        // Mappa valori a colori
+        valueToColorMap = new HashMap<>();
+        valueToColorMap.put(5, Color.red);
+        valueToColorMap.put(10, Color.blue);
+        valueToColorMap.put(15, Color.green);
+        valueToColorMap.put(20, Color.yellow);
+        valueToColorMap.put(25, Color.orange);
+        valueToColorMap.put(30, Color.pink);
+        valueToColorMap.put(35, Color.cyan);
+        valueToColorMap.put(40, Color.magenta);
+        valueToColorMap.put(45, Color.gray);
+        valueToColorMap.put(50, Color.white);
+
         brickWidth = 540 / col;
         brickHeight = 150 / row;
+    }
+
+    // Genera una lista di valori casuali che sommano a 500
+    private ArrayList<Integer> generateBrickValues(int numBricks, int totalValue) {
+        ArrayList<Integer> values = new ArrayList<>();
+        SecureRandom random = new SecureRandom();
+
+        // Aggiungi multipli di 5 casuali
+        while (values.size() < numBricks - 1) {
+            int value = (random.nextInt(10) + 1) * 5;  // Genera multipli di 5 tra 5 e 50
+            values.add(value);
+        }
+
+        // Calcola il valore mancante per arrivare esattamente a 500
+        int currentSum = values.stream().mapToInt(Integer::intValue).sum();
+        int finalValue = totalValue - currentSum;
+        if (finalValue > 0 && finalValue % 5 == 0) {
+            values.add(finalValue);
+        } else {
+            // Se il valore non è valido, aggiusta uno dei valori
+            int adjustment = finalValue - (finalValue % 5);
+            values.add(adjustment);
+        }
+
+        return values;
     }
 
     public void draw(Graphics2D g) {
         for (int i = 0; i < map.length; i++) {
             for (int j = 0; j < map[0].length; j++) {
                 if (map[i][j] > 0) {
-                    g.setColor(Color.white);
+                    // Ottieni il valore del blocco
+                    int value = brickValues[i][j];
+
+                    // Ottieni il colore corrispondente al valore
+                    g.setColor(valueToColorMap.get(value));
+
                     g.fillRect(j * brickWidth + 80, i * brickHeight + 50, brickWidth, brickHeight);
 
                     g.setStroke(new BasicStroke(3));

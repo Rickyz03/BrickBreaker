@@ -67,7 +67,7 @@ public class BrickBreakerTest {
         brickBreaker.paint(g);
 
         // Verifica che il paddle venga disegnato
-        verify(g).setColor(Color.green);
+        verify(g, atLeastOnce()).setColor(Color.green);
         verify(g).fillRect(brickBreaker.playerX, 550, 100, 8); // Paddle
     }
 
@@ -87,7 +87,7 @@ public class BrickBreakerTest {
         brickBreaker.paint(g);
 
         // Verifica che venga mostrato il messaggio di Game Over
-        verify(g).setColor(Color.red);
+        verify(g, atLeastOnce()).setColor(Color.red); // Il colore rosso potrebbe essere usato anche altrove
         verify(g).setFont(new Font("serif", Font.BOLD, 30));
         verify(g).drawString("Game Over, Scores: 0", 190, 300); // Il punteggio è ancora 0
         verify(g).setFont(new Font("serif", Font.BOLD, 20));
@@ -101,7 +101,7 @@ public class BrickBreakerTest {
         brickBreaker.paint(g);
 
         // Verifica che venga mostrato il messaggio di vittoria
-        verify(g).setColor(Color.red);
+        verify(g, atLeastOnce()).setColor(Color.red);
         verify(g).setFont(new Font("serif", Font.BOLD, 30));
         verify(g).drawString("You Won", 260, 300);
         verify(g).setFont(new Font("serif", Font.BOLD, 20));
