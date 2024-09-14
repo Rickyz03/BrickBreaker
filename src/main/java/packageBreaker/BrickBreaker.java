@@ -9,6 +9,9 @@ import java.awt.*;
 import java.awt.event.*;
 import java.security.SecureRandom;
 
+import java.util.ArrayList;
+import java.util.Collections;
+
 public class BrickBreaker extends JPanel implements KeyListener, ActionListener {
     boolean play = false;
     boolean isTheFirstMatch = true; // Variabile per distinguere la prima partita
@@ -224,15 +227,37 @@ public class BrickBreaker extends JPanel implements KeyListener, ActionListener 
 }
 
 class MapGenerator {
-    public int[][] map;
+    public int[][] map; // Mappa dei blocchi (0 per assente, valore del punteggio per presente)
+    public int[][] blockValues; // Punteggi dei blocchi
     public int brickWidth;
     public int brickHeight;
 
+    // Punteggi fissi per i blocchi
+    private final int[] fixedBlockValues = {
+            5, 10, 15, 20, 25, 25, 20, 15, 10, 5,
+            5, 10, 15, 20, 25, 25, 20, 15, 5, 5, 5
+    };
+
     public MapGenerator(int row, int col) {
         map = new int[row][col];
-        for (int i = 0; i < map.length; i++) {
-            for (int j = 0; j < map[0].length; j++) {
-                map[i][j] = 1;
+        blockValues = new int[row][col];
+        ArrayList<Integer> shuffledValues = new ArrayList<>();
+
+        // Aggiungi i punteggi fissi alla lista
+        for (int value : fixedBlockValues) {
+            shuffledValues.add(value);
+        }
+
+        // Mischia i punteggi
+        Collections.shuffle(shuffledValues);
+
+        // Assegna i valori casualmente ai blocchi
+        int index = 0;
+        for (int i = 0; i < row; i++) {
+            for (int j = 0; j < col; j++) {
+                map[i][j] = 1; // 1 indica che il blocco è presente
+                blockValues[i][j] = shuffledValues.get(index); // Assegna il punteggio casuale
+                index++;
             }
         }
 
@@ -244,14 +269,39 @@ class MapGenerator {
         for (int i = 0; i < map.length; i++) {
             for (int j = 0; j < map[0].length; j++) {
                 if (map[i][j] > 0) {
-                    g.setColor(Color.white);
+                    int brickValue = blockValues[i][j];
+                    Color brickColor = getColorForValue(brickValue); // Ottieni il colore in base al punteggio
+                    g.setColor(brickColor);
                     g.fillRect(j * brickWidth + 80, i * brickHeight + 50, brickWidth, brickHeight);
 
                     g.setStroke(new BasicStroke(3));
                     g.setColor(Color.black);
                     g.drawRect(j * brickWidth + 80, i * brickHeight + 50, brickWidth, brickHeight);
+
+                    // Scrivi il punteggio sopra il blocco
+                    g.setColor(Color.white);
+                    g.setFont(new Font("serif", Font.BOLD, 20));
+                    g.drawString("" + brickValue, j * brickWidth + 80 + brickWidth / 2 - 10, i * brickHeight + 50 + brickHeight / 2 + 5);
                 }
             }
+        }
+    }
+
+    // Metodo per ottenere il colore in base al punteggio
+    private Color getColorForValue(int value) {
+        switch (value) {
+            case 25:
+                return Color.red;
+            case 20:
+                return Color.orange;
+            case 15:
+                return Color.yellow;
+            case 10:
+                return Color.green;
+            case 5:
+                return Color.blue;
+            default:
+                return Color.white; // Default se il valore non è previsto
         }
     }
 
