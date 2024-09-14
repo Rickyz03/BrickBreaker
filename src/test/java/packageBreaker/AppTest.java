@@ -1,19 +1,34 @@
+////////////////////////////////////////////////////////////////////
+// Riccardo Stefani
+////////////////////////////////////////////////////////////////////
+
 package packageBreaker;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import org.junit.Test;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
-import org.junit.jupiter.api.Test;
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
 
-/**
- * Unit test for simple App.
- */
 public class AppTest {
-
-    /**
-     * Rigorous Test :-)
-     */
     @Test
-    public void shouldAnswerWithTrue() {
-        assertTrue(true);
+    public void testHelloWorld() {
+        // Reindirizza l'output standard
+        ByteArrayOutputStream outContent = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(outContent));
+
+        // Esegui il metodo main
+        App.main(new String[]{});
+
+        // Verifica che l'output sia corretto
+        assertEquals("Hello World!\n", outContent.toString());
+    }
+
+    @Test
+    public void testClassIstantiation(){
+        // Verifica che la classe App possa essere istanziata correttamente
+        App app = new App();
+        assertNotNull(app);
     }
 }
