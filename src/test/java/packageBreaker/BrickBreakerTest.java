@@ -222,8 +222,10 @@ public class BrickBreakerTest {
     public void testMoveRight() {
         int initialPlayerX = brickBreaker.playerX;
         brickBreaker.play = true; // you can move the player only if play is true
-        brickBreaker.moveRight();
-        assertTrue(brickBreaker.play);
+
+        KeyEvent rightEvent = new KeyEvent(brickBreaker, KeyEvent.KEY_PRESSED, System.currentTimeMillis(), 0, KeyEvent.VK_RIGHT, ' ');
+        brickBreaker.keyPressed(rightEvent);
+
         assertEquals(initialPlayerX + 20, brickBreaker.playerX);
     }
 
@@ -231,38 +233,32 @@ public class BrickBreakerTest {
     public void testMoveLeft() {
         int initialPlayerX = brickBreaker.playerX;
         brickBreaker.play = true; // you can move the player only if play is true
-        brickBreaker.moveLeft();
-        assertTrue(brickBreaker.play);
+
+        KeyEvent leftEvent = new KeyEvent(brickBreaker, KeyEvent.KEY_PRESSED, System.currentTimeMillis(), 0, KeyEvent.VK_LEFT, ' ');
+        brickBreaker.keyPressed(leftEvent);
+
         assertEquals(initialPlayerX - 20, brickBreaker.playerX);
     }
 
     @Test
     public void testMoveRightBeyondBoundary() {
-        // Simula una situazione in cui il giocatore si trova al limite destro
         brickBreaker.playerX = brickBreaker.rightBoundary;
+        brickBreaker.play = true; // you can move the player only if play is true
 
-        // Crea un evento KeyEvent per la freccia destra
         KeyEvent rightEvent = new KeyEvent(brickBreaker, KeyEvent.KEY_PRESSED, System.currentTimeMillis(), 0, KeyEvent.VK_RIGHT, ' ');
-
-        // Chiamata al metodo keyPressed per simulare l'input
         brickBreaker.keyPressed(rightEvent);
 
-        // Verifica che playerX non superi il limite destro
         assertEquals(brickBreaker.rightBoundary, brickBreaker.playerX);
     }
 
     @Test
     public void testMoveLeftBeyondBoundary() {
-        // Simula una situazione in cui il giocatore si trova al limite sinistro
         brickBreaker.playerX = brickBreaker.leftBoundary;
+        brickBreaker.play = true; // you can move the player only if play is true
 
-        // Crea un evento KeyEvent per la freccia sinistra
         KeyEvent leftEvent = new KeyEvent(brickBreaker, KeyEvent.KEY_PRESSED, System.currentTimeMillis(), 0, KeyEvent.VK_LEFT, ' ');
-
-        // Chiamata al metodo keyPressed per simulare l'input
         brickBreaker.keyPressed(leftEvent);
 
-        // Verifica che playerX non vada oltre il limite sinistro
         assertEquals(brickBreaker.leftBoundary, brickBreaker.playerX);
     }
 
