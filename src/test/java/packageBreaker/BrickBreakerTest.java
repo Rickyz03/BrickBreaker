@@ -79,7 +79,7 @@ public class BrickBreakerTest {
         // Verifica che il punteggio venga disegnato
         verify(g, atLeastOnce()).setColor(Color.white); // Il colore bianco può essere impostato più volte
         verify(g).setFont(new Font("serif", Font.BOLD, 25));
-        verify(g).drawString("0", 590, 30); // Il punteggio iniziale è 0
+        verify(g).drawString("0", 587, 30); // Il punteggio iniziale è 0
     }
 
     @Test
@@ -161,7 +161,7 @@ public class BrickBreakerTest {
 
         assertTrue("The game should start when ENTER is pressed.", brickBreaker.play);
 
-        assertEquals("Player should be repositioned at the center.", 310, brickBreaker.playerX);
+        assertEquals("Player should be repositioned at the center.", 300, brickBreaker.playerX);
 
         assertEquals("Score should be reset to 0.", 0, brickBreaker.score);
 
@@ -197,9 +197,10 @@ public class BrickBreakerTest {
         // Verifica che venga mostrato il messaggio di Game Over
         verify(g, atLeastOnce()).setColor(Color.red);
         verify(g, atLeastOnce()).setFont(new Font("serif", Font.BOLD, 30));
-        verify(g).drawString("Game Over, Scores: 0", 190, 300); // Il punteggio è ancora 0
+        verify(g).drawString("Game Over, Score: 0", 187, 300); // Il punteggio è ancora 0
+        verify(g, atLeastOnce()).setColor(Color.white);
         verify(g, atLeastOnce()).setFont(new Font("serif", Font.BOLD, 20));
-        verify(g).drawString("Press Enter to Restart", 230, 350);
+        verify(g).drawString("Press Enter to Restart", 240, 350);
     }
 
     @Test
@@ -211,9 +212,10 @@ public class BrickBreakerTest {
         // Verifica che venga mostrato il messaggio di vittoria
         verify(g, atLeastOnce()).setColor(Color.red);
         verify(g, atLeastOnce()).setFont(new Font("serif", Font.BOLD, 30));
-        verify(g).drawString("You Won", 260, 300);
+        verify(g).drawString("You Won", 277, 300);
+        verify(g, atLeastOnce()).setColor(Color.white);
         verify(g, atLeastOnce()).setFont(new Font("serif", Font.BOLD, 20));
-        verify(g).drawString("Press Enter to Restart", 230, 350);
+        verify(g).drawString("Press Enter to Restart", 237, 350);
     }
 
     @Test

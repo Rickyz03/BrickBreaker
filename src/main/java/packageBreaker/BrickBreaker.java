@@ -19,7 +19,7 @@ public class BrickBreaker extends JPanel implements KeyListener, ActionListener 
     int totalBricks = 21;
     Timer timer;
     int delay = 8;
-    int playerX = 310;
+    int playerX = 300;
     int ballPosX; // Ora sorteggiato all'inizio
     int ballPosY;
     int ballXDir;
@@ -70,7 +70,7 @@ public class BrickBreaker extends JPanel implements KeyListener, ActionListener 
         // Scores
         g.setColor(Color.white);
         g.setFont(new Font("serif", Font.BOLD, 25));
-        g.drawString("" + score, 590, 30);
+        g.drawString("" + score, 587, 30);
 
         // The paddle
         g.setColor(Color.green);
@@ -86,12 +86,12 @@ public class BrickBreaker extends JPanel implements KeyListener, ActionListener 
         if (isTheFirstMatch) {
             g.setColor(Color.red);
             g.setFont(new Font("serif", Font.BOLD, 30));
-            g.drawString("Press Enter to start", 187, 300);
+            g.drawString("Press Enter to start", 200, 300);
 
             g.setColor(Color.white);
             g.setFont(new Font("serif", Font.BOLD, 20));
-            g.drawString("Then use the left and right arrows", 160, 330);
-            g.drawString("to play, moving the horizontal line", 160, 360);
+            g.drawString("Use the left and right arrows", 203, 350);
+            g.drawString("to move the paddle", 250, 380);
         }
 
         // Condizioni di vittoria
@@ -101,10 +101,11 @@ public class BrickBreaker extends JPanel implements KeyListener, ActionListener 
             ballYDir = 0;
             g.setColor(Color.red);
             g.setFont(new Font("serif", Font.BOLD, 30));
-            g.drawString("You Won", 260, 300);
+            g.drawString("You Won", 277, 300);
 
+            g.setColor(Color.white);
             g.setFont(new Font("serif", Font.BOLD, 20));
-            g.drawString("Press Enter to Restart", 230, 350);
+            g.drawString("Press Enter to Restart", 237, 350);
         }
 
         // Condizioni di game over
@@ -114,10 +115,11 @@ public class BrickBreaker extends JPanel implements KeyListener, ActionListener 
             ballYDir = 0;
             g.setColor(Color.red);
             g.setFont(new Font("serif", Font.BOLD, 30));
-            g.drawString("Game Over, Scores: " + score, 190, 300);
+            g.drawString("Game Over, Score: " + score, 187, 300);
 
+            g.setColor(Color.white);
             g.setFont(new Font("serif", Font.BOLD, 20));
-            g.drawString("Press Enter to Restart", 230, 350);
+            g.drawString("Press Enter to Restart", 240, 350);
         }
 
         g.dispose();
@@ -200,7 +202,7 @@ public class BrickBreaker extends JPanel implements KeyListener, ActionListener 
         if (e.getKeyCode() == KeyEvent.VK_ENTER) {
             if (!play) {
                 play = true;
-                playerX = 310; // Riposiziona il player al centro
+                playerX = 300; // Riposiziona il player al centro
                 score = 0;
                 totalBricks = 21;
 
@@ -241,6 +243,7 @@ public class BrickBreaker extends JPanel implements KeyListener, ActionListener 
     public static JFrame startGame() {
         JFrame frame = new JFrame();
         BrickBreaker gamePlay = new BrickBreaker();
+
         frame.setBounds(10, 10, 700, 600);
         frame.setTitle("Brick Breaker");
         frame.setResizable(false);
@@ -302,16 +305,16 @@ class MapGenerator {
                     int brickValue = blockValues[i][j];
                     Color brickColor = getColorForValue(brickValue); // Ottieni il colore in base al punteggio
                     g.setColor(brickColor);
-                    g.fillRect(j * brickWidth + 80, i * brickHeight + 50, brickWidth, brickHeight);
+                    g.fillRect(j * brickWidth + 77, i * brickHeight + 50, brickWidth, brickHeight);
 
                     g.setStroke(new BasicStroke(3));
                     g.setColor(Color.black);
-                    g.drawRect(j * brickWidth + 80, i * brickHeight + 50, brickWidth, brickHeight);
+                    g.drawRect(j * brickWidth + 77, i * brickHeight + 50, brickWidth, brickHeight);
 
                     // Scrivi il punteggio sopra il blocco
                     g.setColor(Color.black); // Cambia il colore del testo in nero
                     g.setFont(new Font("serif", Font.BOLD, 20));
-                    g.drawString("" + brickValue, j * brickWidth + 80 + brickWidth / 2 - 10, i * brickHeight + 50 + brickHeight / 2 + 5);
+                    g.drawString("" + brickValue, j * brickWidth + 77 + brickWidth / 2 - 10, i * brickHeight + 50 + brickHeight / 2 + 5);
                 }
             }
         }
