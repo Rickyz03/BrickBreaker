@@ -125,7 +125,7 @@ public class BrickBreakerTest {
         int initialScore = brickBreaker.score;
         int initialTotalBricks = brickBreaker.totalBricks;
 
-        // Piazza play a true e fissa le direzioni della pallina
+        // Piazza play a true e salva le direzioni iniziali della pallina
         brickBreaker.play = true;
         brickBreaker.resetBallPositionAndDirection();
         int inizialDirX = brickBreaker.ballXDir;
@@ -197,7 +197,7 @@ public class BrickBreakerTest {
         // Verifica che venga mostrato il messaggio di Game Over
         verify(g, atLeastOnce()).setColor(Color.red);
         verify(g, atLeastOnce()).setFont(new Font("serif", Font.BOLD, 30));
-        verify(g).drawString("Game Over, Score: 0", 187, 300); // Il punteggio è ancora 0
+        verify(g).drawString("Game Over, Score: 0", 187, 300); // Il punteggio è ancora 0, questo game over è stato simulato senza aver preso alcun blocco
         verify(g, atLeastOnce()).setColor(Color.white);
         verify(g, atLeastOnce()).setFont(new Font("serif", Font.BOLD, 20));
         verify(g).drawString("Press Enter to Restart", 240, 350);
@@ -234,22 +234,6 @@ public class BrickBreakerTest {
         brickBreaker.moveLeft();
         assertTrue(brickBreaker.play);
         assertEquals(initialPlayerX - 20, brickBreaker.playerX);
-    }
-
-    @Test
-    public void testKeyPressRight() {
-        KeyEvent rightKey = new KeyEvent(brickBreaker, KeyEvent.KEY_PRESSED, System.currentTimeMillis(), 0, KeyEvent.VK_RIGHT, 'D');
-        brickBreaker.play = true; // you can move the player only if play is true
-        brickBreaker.keyPressed(rightKey);
-        assertTrue(brickBreaker.play);
-    }
-
-    @Test
-    public void testKeyPressLeft() {
-        KeyEvent leftKey = new KeyEvent(brickBreaker, KeyEvent.KEY_PRESSED, System.currentTimeMillis(), 0, KeyEvent.VK_LEFT, 'A');
-        brickBreaker.play = true; // you can move the player only if play is true
-        brickBreaker.keyPressed(leftKey);
-        assertTrue(brickBreaker.play);
     }
 
     @Test

@@ -20,7 +20,7 @@ public class BrickBreaker extends JPanel implements KeyListener, ActionListener 
     Timer timer;
     int delay = 8;
     int playerX = 300;
-    int ballPosX; // Ora sorteggiato all'inizio
+    int ballPosX;
     int ballPosY;
     int ballXDir;
     int ballYDir;
