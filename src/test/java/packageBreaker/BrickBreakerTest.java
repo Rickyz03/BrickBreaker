@@ -237,6 +237,37 @@ public class BrickBreakerTest {
     }
 
     @Test
+    public void testMoveRightBeyondBoundary() {
+        // Simula una situazione in cui il giocatore si trova al limite destro
+        brickBreaker.playerX = brickBreaker.rightBoundary;
+
+        // Crea un evento KeyEvent per la freccia destra
+        KeyEvent rightEvent = new KeyEvent(brickBreaker, KeyEvent.KEY_PRESSED, System.currentTimeMillis(), 0, KeyEvent.VK_RIGHT, ' ');
+
+        // Chiamata al metodo keyPressed per simulare l'input
+        brickBreaker.keyPressed(rightEvent);
+
+        // Verifica che playerX non superi il limite destro
+        assertEquals(brickBreaker.rightBoundary, brickBreaker.playerX);
+    }
+
+    @Test
+    public void testMoveLeftBeyondBoundary() {
+        // Simula una situazione in cui il giocatore si trova al limite sinistro
+        brickBreaker.playerX = brickBreaker.leftBoundary;
+
+        // Crea un evento KeyEvent per la freccia sinistra
+        KeyEvent leftEvent = new KeyEvent(brickBreaker, KeyEvent.KEY_PRESSED, System.currentTimeMillis(), 0, KeyEvent.VK_LEFT, ' ');
+
+        // Chiamata al metodo keyPressed per simulare l'input
+        brickBreaker.keyPressed(leftEvent);
+
+        // Verifica che playerX non vada oltre il limite sinistro
+        assertEquals(brickBreaker.leftBoundary, brickBreaker.playerX);
+    }
+
+
+    @Test
     public void testGameOver() {
         brickBreaker.ballPosY = 580;
         brickBreaker.actionPerformed(null);

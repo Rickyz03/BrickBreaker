@@ -26,6 +26,8 @@ public class BrickBreaker extends JPanel implements KeyListener, ActionListener 
     int ballYDir;
     MapGenerator map;
     SecureRandom secureRandom;
+    int leftBoundary = 3; // La linea gialla sul bordo sinistro
+    int rightBoundary = 692 - 3 - 100; // La larghezza della finestra meno la linea gialla e la larghezza del player
 
     public BrickBreaker() {
         map = new MapGenerator(3, 7);
@@ -163,13 +165,13 @@ public class BrickBreaker extends JPanel implements KeyListener, ActionListener 
 
             ballPosX += ballXDir;
             ballPosY += ballYDir;
-            if (ballPosX < 0) {
+            if (ballPosX < 0) {          // Contatto con il confine sinistro
                 ballXDir = -ballXDir;
             }
-            if (ballPosY < 0) {
+            if (ballPosY < 0) {          // Contatto con il soffitto
                 ballYDir = -ballYDir;
             }
-            if (ballPosX > 670) {
+            if (ballPosX > 670) {        // Contatto con il confine destro
                 ballXDir = -ballXDir;
             }
         }
@@ -179,9 +181,6 @@ public class BrickBreaker extends JPanel implements KeyListener, ActionListener 
 
     @Override
     public void keyPressed(KeyEvent e) {
-        int leftBoundary = 3; // La linea gialla sul bordo sinistro
-        int rightBoundary = 692 - 3 - 100; // La larghezza della finestra meno la linea gialla e la larghezza del player
-
         if (play) { // Permetti il movimento solo se il gioco è attivo
             if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
                 if (playerX >= rightBoundary) {
