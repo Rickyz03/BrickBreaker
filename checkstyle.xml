@@ -22,7 +22,7 @@
         <property name="max" value="250"/>
     </module>
     <module name="FileTabCharacter"/>
-    <module name="RegexpHeader">
+    <!-- <module name="RegexpHeader">
         <property name="headerFile" value="LICENSE.txt"/>
-    </module>
+    </module>     NON FUNZIONA CON LICENZE LUNGHE PIÙ DI UNA RIGA-->
 </module>
