@@ -27,10 +27,12 @@ Le principali caratteristiche del gioco sono:
 
 ## Tecnologie usate
 * Java
-* Swing per l'interfaccia grafica
 * Maven per la gestione del progetto
+* Swing per l'interfaccia grafica
 * JUnit e Mockito per i test
 * Jacoco e Coveralls per la copertura del codice
+* CheckStyle per il l'analisi statica del codice sorgente
+* Badger per la generazione dei badges fissati in alto nel README
 * SonarCloud per il controllo qualità
 
 <hr/>
