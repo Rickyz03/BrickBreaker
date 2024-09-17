@@ -52,7 +52,10 @@ Per compilare BrickBreaker:
  mvn clean install
 ```
 Per eseguire il gioco:
-
+```bash
+mvn exec:java -Dexec.mainClass="com.example.BrickBreaker"
+```
+oppure, equivalentemente:
 ```bash
  java -jar target/BrickBreaker-1.0-SNAPSHOT.jar
 ```
