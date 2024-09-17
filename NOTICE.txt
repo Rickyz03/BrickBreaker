@@ -25,7 +25,7 @@ This product includes software developed by the following open-source projects:
    - URL: https://github.com/trautonen/coveralls-maven-plugin
 
 5. Checkstyle Maven Plugin 3.3.1
-   - License: Eclipse Public License 2.0 (EPL-2.0)
+   - License: GNU Lesser General Public License (LGPL)
    - URL: https://checkstyle.sourceforge.io/
 
 6. Badger Plugin 1.0.0
