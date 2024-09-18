@@ -4,7 +4,7 @@
 <module name="Checker">
     <module name="TreeWalker">
         <module name="BooleanExpressionComplexity"/>
-        <!-- <module name="CyclomaticComplexity"/> Di default è 10, IMPOSSIBILE -->
+        <!-- <module name="CyclomaticComplexity"/>  Di default è 10, IMPOSSIBILE -->
         <!-- Modifica la CyclomaticComplexity a un massimo di 15: -->
         <module name="CyclomaticComplexity">
             <property name="max" value="15"/>
@@ -16,13 +16,16 @@
         <module name="NeedBraces"/>
     </module>
     <module name="FileLength"/>
-    <!-- <module name="LineLength"/> Di default è 80, IMPOSSIBILE -->
+    <!-- <module name="LineLength"/>  Di default è 80, IMPOSSIBILE -->
     <!-- Modifica la LineLength a 250 caratteri: -->
     <module name="LineLength">
         <property name="max" value="250"/>
     </module>
     <module name="FileTabCharacter"/>
-    <module name="RegexpHeader">
+    <!-- <module name="RegexpHeader">
         <property name="headerFile" value="Header.txt"/>
-    </module>  <!-- NON FUNZIONA SE IL FILE HEADER CONTIENE DELLE PARENTESI-->
+    </module>  Non funziona se il file Header contiene delle parentesi tonde e/o degli asterischi-->
+    <module name="Header">
+        <property name="headerFile" value="Header.txt"/>
+    </module>
 </module>
