@@ -55,7 +55,7 @@ Per compilare BrickBreaker:
 ```
 Per eseguire il gioco:
 ```bash
-mvn exec:java -Dexec.mainClass="com.example.BrickBreaker"
+mvn exec:java -Dexec.mainClass="packageBreaker.BrickBreaker"
 ```
 oppure, equivalentemente:
 ```bash
