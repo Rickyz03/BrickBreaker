@@ -10,12 +10,12 @@ Main branch (Coveralls): [![Coverage Status](https://coveralls.io/repos/github/R
 Quality gate (SonarCloud): [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=Rickyz03_BrickBreaker&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=Rickyz03_BrickBreaker)
 # BrickBreaker
 
-Repository per il codice sorgente del progetto Brick Breaker.
+Repository per il codice sorgente del progetto BrickBreaker.
 
 <hr/>
 
 ## Funzionalità
-Brick Breaker è un gioco classico in cui l'obiettivo è controllare una barra per far rimbalzare una pallina e rompere tutti i blocchi presenti nella schermata.
+BrickBreaker è un gioco classico in cui l'obiettivo è controllare una barra per far rimbalzare una pallina e rompere tutti i blocchi presenti nella schermata.
 <br/>
 Le principali caratteristiche del gioco sono:
 - La pallina parte da una posizione casuale e con una direzione casuale, dopo essere stata lanciata alla pressione del tasto Enter.
