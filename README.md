@@ -39,7 +39,7 @@ Le principali caratteristiche del gioco sono:
 
 ## Dipendenze
 * Java Development Kit (JDK) versione 11 o superiore
-* Maven
+* Maven versione 3.9 o superiore
 
 <hr/>
 
