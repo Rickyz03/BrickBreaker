@@ -26,7 +26,7 @@ Le principali caratteristiche del gioco sono:
 <hr/>
 
 ## Tecnologie usate
-* Java
+* Java per il codice sorgente
 * Maven per la gestione del progetto
 * Swing per l'interfaccia grafica
 * JUnit e Mockito per i test
